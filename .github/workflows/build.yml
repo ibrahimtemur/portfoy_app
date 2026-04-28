@@ -1,4 +1,4 @@
-name: Multi-Platform Build
+name: Portföy Uygulaması Çıktıları (Android, Windows, macOS)
 
 on:
   push:
@@ -16,12 +16,15 @@ jobs:
           - platform: android
             os: ubuntu-latest
             path: build/app/outputs/flutter-apk/*.apk
+            artifact_name: Android-APK
           - platform: windows
             os: windows-latest
             path: build/windows/x64/runner/Release/
+            artifact_name: Windows-Exe-Dosyalari
           - platform: macos
             os: macos-latest
             path: build/macos/Build/Products/Release/*.app
+            artifact_name: macOS-Uygulama-Dosyasi
 
     steps:
       - name: Checkout code
@@ -61,5 +64,5 @@ jobs:
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: build-${{ matrix.platform }}
+          name: ${{ matrix.artifact_name }}
           path: ${{ matrix.path }}
