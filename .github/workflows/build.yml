@@ -15,10 +15,13 @@ jobs:
         include:
           - platform: android
             os: ubuntu-latest
+            path: build/app/outputs/flutter-apk/*.apk
           - platform: windows
             os: windows-latest
+            path: build/windows/x64/runner/Release/
           - platform: macos
             os: macos-latest
+            path: build/macos/Build/Products/Release/*.app
 
     steps:
       - name: Checkout code
@@ -59,7 +62,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: build-${{ matrix.platform }}
-          path: |
-            build/app/outputs/flutter-apk/*.apk
-            build/windows/runner/Release/*
-            build/macos/Build/Products/Release/*.app
+          path: ${{ matrix.path }}
