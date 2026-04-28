@@ -1,4 +1,5 @@
 name: Portföy Uygulaması Çıktıları (Android, Windows, macOS)
+run-name: Portföy Uygulaması - 3 Platform (Android, Windows, macOS) Derlemesi
 
 on:
   push:
