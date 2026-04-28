@@ -10,7 +10,7 @@ Canlı Portföyüm, Borsa İstanbul (BIST), Altın ve küresel piyasaları anlı
 - **Haber & Bilanço:** Borsa ve dünya gündeminden haberler, Fintables entegreli bilanço takvimi.
 - **Karanlık/Aydınlık Mod:** Modern ve göz yormayan arayüz seçenekleri.
 - **Gizlilik:** Bakiye gizleme özelliği ile güvenli kullanım.
-- **Responsive Tasarım:** Telefon, tablet (iPad) ve macOS cihazlarda kusursuz görünüm.
+- **Responsive Tasarım:** Telefon, tablet (iPad), macOS ve Windows cihazlarda kusursuz görünüm.
 
 ## 🚀 Kurulum
 
@@ -39,6 +39,12 @@ flutter build apk --release
 ### macOS
 ```bash
 flutter build macos --release
+```
+
+### Windows
+Windows çıktısı almak için bir Windows işletim sistemi ve Visual Studio (Desktop development with C++ workload) yüklü olması gerekmektedir:
+```bash
+flutter build windows --release
 ```
 
 ## 🛠️ Kullanılan Teknolojiler
