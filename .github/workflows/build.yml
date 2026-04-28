@@ -1,0 +1,65 @@
+name: Multi-Platform Build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    name: Build for ${{ matrix.platform }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        include:
+          - platform: android
+            os: ubuntu-latest
+          - platform: windows
+            os: windows-latest
+          - platform: macos
+            os: macos-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Java (for Android)
+        if: matrix.platform == 'android'
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Build Android APK
+        if: matrix.platform == 'android'
+        run: flutter build apk --release
+
+      - name: Build Windows
+        if: matrix.platform == 'windows'
+        run: |
+          flutter config --enable-windows-desktop
+          flutter build windows --release
+
+      - name: Build macOS
+        if: matrix.platform == 'macos'
+        run: |
+          flutter config --enable-macos-desktop
+          flutter build macos --release
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-${{ matrix.platform }}
+          path: |
+            build/app/outputs/flutter-apk/*.apk
+            build/windows/runner/Release/*
+            build/macos/Build/Products/Release/*.app
